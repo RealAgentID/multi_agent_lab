@@ -1,0 +1,79 @@
+{
+  "agent-recon": {
+    "role": "recon",
+    "permissions": [
+      "read_docs",
+      "analyze_text",
+      "summarize_endpoints"
+    ],
+    "denied": [
+      "network_calls",
+      "probe_targets",
+      "modify_state"
+    ]
+  },
+
+  "agent-categorization": {
+    "role": "categorization",
+    "permissions": [
+      "classify_domains",
+      "tag_risk_level"
+    ],
+    "denied": [
+      "network_calls",
+      "probe_targets"
+    ]
+  },
+
+  "agent-analysis": {
+    "role": "analysis",
+    "permissions": [
+      "reason_about_data",
+      "suggest_vuln_class",
+      "estimate_severity"
+    ],
+    "denied": [
+      "network_calls",
+      "probe_targets"
+    ]
+  },
+
+  "agent-report": {
+    "role": "report",
+    "permissions": [
+      "generate_markdown",
+      "structure_report",
+      "summarize_impact"
+    ],
+    "denied": [
+      "network_calls",
+      "probe_targets"
+    ]
+  },
+
+  "agent-guardrail": {
+    "role": "guardrail",
+    "permissions": [
+      "validate_scope",
+      "check_policy",
+      "block_action",
+      "emit_alert"
+    ],
+    "denied": [
+      "probe_targets"
+    ]
+  },
+
+  "agent-learning": {
+    "role": "learning",
+    "permissions": [
+      "explain_concepts",
+      "summarize_docs",
+      "generate_examples"
+    ],
+    "denied": [
+      "network_calls",
+      "probe_targets"
+    ]
+  }
+}

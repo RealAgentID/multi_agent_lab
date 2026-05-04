@@ -1,0 +1,47 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - git
+  - curl
+  - ca-certificates
+
+write_files:
+  # Placeholder RealAgentID config (Terraform will overwrite this later)
+  - path: /opt/realagentid/agents.json
+    permissions: "0644"
+    owner: root:root
+    content: |
+      {
+        "placeholder": true
+      }
+
+runcmd:
+  # Install Docker
+  - curl -fsSL https://get.docker.com | sh
+
+  # Enable Docker
+  - systemctl enable docker
+  - systemctl start docker
+
+  # Install docker-compose plugin
+  - mkdir -p /usr/local/lib/docker/cli-plugins
+  - curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose
+  - chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+  # Install Tailscale (you will authenticate manually)
+  - curl -fsSL https://tailscale.com/install.sh | sh
+
+  # Create project directory
+  - mkdir -p /opt/multi-agent-lab
+
+  # Clone your repo (you can update this URL later)
+  - git clone https://github.com/yourusername/multi-agent-lab.git /opt/multi-agent-lab || true
+
+  # Move into project directory
+  - cd /opt/multi-agent-lab
+
+  # Bring up the multi-agent system
+  - docker compose up -d
